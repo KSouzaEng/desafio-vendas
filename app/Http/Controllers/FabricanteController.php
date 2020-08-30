@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fabricante;
 use Illuminate\Http\Request;
+use App\User;
 
 class FabricanteController extends Controller
 {
@@ -15,7 +16,9 @@ class FabricanteController extends Controller
     public function index()
     {
         //
-        return view('fabricante.index');
+      $fabricantes = Fabricante::all();
+     // dd($fabricantes);
+      return view('fabricante.index', compact('fabricantes'));
     }
 
     /**
@@ -38,6 +41,13 @@ class FabricanteController extends Controller
     public function store(Request $request)
     {
         //
+
+        $fabricantes = Fabricante::create([
+        'nome' => $request->nome,
+        'site' => $request->site,
+        'user_id' => auth()->user()->id,
+    ]);
+       return redirect('/fabricantes');
     }
 
     /**
@@ -49,6 +59,8 @@ class FabricanteController extends Controller
     public function show(Fabricante $fabricante)
     {
         //
+        return view('fabricante.show');
+
     }
 
     /**
@@ -57,9 +69,12 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fabricante $fabricante)
+    public function edit(Fabricante $fabricantes, $id)
     {
         //
+        $fabricantes = Fabricante::find($id);
+      //  dd($fabricantes);
+        return view('fabricante.edit', compact('fabricantes'));
     }
 
     /**
@@ -69,9 +84,18 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fabricante $fabricante)
+    public function update(Request $request, $id)
     {
         //
+        $validaDados = $request->validate([
+            'nome' => 'required',
+            'site' => 'required'
+
+            ]);
+
+            Fabricante::whereId($id)->update($validaDados);
+            return redirect('/fabricantes')->
+            with('sucsess','Os dados foram atualizados!!');
     }
 
     /**
@@ -80,8 +104,15 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fabricante $fabricante)
+    public function destroy(Fabricante $fabricantes, $id)
     {
-        //
+
+
+            $fabricantes = Fabricante::find($id);
+           // dd($fabricantes);
+            $fabricantes->delete();
+
+            return redirect('/fabricantes');
+
     }
 }
