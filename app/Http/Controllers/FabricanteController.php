@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Fabricante;
 use Illuminate\Http\Request;
+use App\Http\Requests\FabricanteRequest;
+use App\Services\FabricanteService;
+use App\DataTables\FabricanteDataTable;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\User;
 
 class FabricanteController extends Controller
@@ -13,12 +17,9 @@ class FabricanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FabricanteDataTable $fabricanteDataTable)
     {
-        //
-      $fabricantes = Fabricante::all();
-     // dd($fabricantes);
-      return view('fabricante.index', compact('fabricantes'));
+      return $fabricanteDataTable->render('fabricante.index');
     }
 
     /**
@@ -38,16 +39,18 @@ class FabricanteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FabricanteRequest $request)
     {
         //
 
-        $fabricantes = Fabricante::create([
-        'nome' => $request->nome,
-        'site' => $request->site,
-        'user_id' => auth()->user()->id,
-    ]);
-       return redirect('/fabricantes');
+        $fabricante = FabricanteService::store($request->all());
+
+        if($fabricante){
+            Alert::success($request->nome, 'Salvo!!');
+        }else{
+            Alert::error($request->nome, 'Erro ao Salvar');
+        }
+        return back()->withInput();
     }
 
     /**
@@ -69,12 +72,10 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fabricante $fabricantes, $id)
+    public function edit(Fabricante $fabricante)
     {
         //
-        $fabricantes = Fabricante::find($id);
-      //  dd($fabricantes);
-        return view('fabricante.edit', compact('fabricantes'));
+        return view('fabricante.FormCreate', compact('fabricante'));
     }
 
     /**
@@ -84,18 +85,19 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Fabricante $fabricante)
     {
         //
-        $validaDados = $request->validate([
-            'nome' => 'required',
-            'site' => 'required'
+        $fabricante = FabricanteService::update($request->all(),$fabricante);
 
-            ]);
+        if($fabricante){
 
-            Fabricante::whereId($id)->update($validaDados);
-            return redirect('/fabricantes')->
-            with('sucsess','Os dados foram atualizados!!');
+            flash('Fabricante atualixado com sucesso')->succsess();
+        }
+        else{
+            flash('Erro ao atualizar')->error();
+        }
+        return back()->withInput();
     }
 
     /**
