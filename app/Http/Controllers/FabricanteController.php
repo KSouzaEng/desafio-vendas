@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Fabricante;
 use Illuminate\Http\Request;
 use App\Http\Requests\FabricanteRequest;
-use App\Services\FabricanteService;
 use App\DataTables\FabricanteDataTable;
+use App\Services\FabricanteService;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\User;
 
 class FabricanteController extends Controller
 {
@@ -33,20 +32,13 @@ class FabricanteController extends Controller
         return view('fabricante.FormCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(FabricanteRequest $request)
     {
-        //
-
         $fabricante = FabricanteService::store($request->all());
 
         if($fabricante){
             Alert::success($request->nome, 'Salvo!!');
+            return back();
         }else{
             Alert::error($request->nome, 'Erro ao Salvar');
         }

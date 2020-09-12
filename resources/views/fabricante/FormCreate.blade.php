@@ -15,7 +15,6 @@
     (Obs: ambos os pacotes só precisa instalar, não necessita de configurações)
 --}}
 
-@include('sweetalert::alert')
 
     <div class="card card-primary">
         @if (isset($fabricante))
@@ -49,3 +48,4 @@
 @stop
 
 @section('css')
+@stop

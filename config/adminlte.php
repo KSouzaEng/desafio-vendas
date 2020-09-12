@@ -236,7 +236,17 @@ return [
             'url' => 'fabricantes',
             'text' => 'Fabricantes',
             'icon' => 'fas fa-truck'
-         ]
+        ],
+        [
+            'url' => 'produtos',
+            'text' => 'Produtos',
+            'icon' => 'fas fa-boxes'
+        ],
+        [
+            'url' => 'clientes',
+            'text' => 'Clientes',
+            'icon' => 'fas fa-users'
+        ]
     ],
 
     /*
@@ -326,6 +336,16 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                ],
+            ],
+        ],
+        'Axios' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//unpkg.com/axios/dist/axios.min.js',
                 ],
             ],
         ],
