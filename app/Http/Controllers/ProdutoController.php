@@ -41,7 +41,7 @@ class ProdutoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   
+
     public function store(ProdutoRequest $request)
     {
         $produto = ProdutoService::store($request->all());
@@ -107,13 +107,19 @@ class ProdutoController extends Controller
      * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-   
-    public function destroy(Produto $produto)
+
+    public function destroy(Produto $produto,  Request $request)
     {
         try {
             $produto->delete();
+            Alert::success($request->nome, 'Excluído!!');
         } catch (Throwable $th) {
-            return response('Erro ao apagar', 400);
+            Alert::error($request->nome, 'Erro ao Excluir');
         }
+    }
+    public function listaProdutos(Request $request)
+    {
+
+        return ProdutoService::listaProdutos($request->all());
     }
 }

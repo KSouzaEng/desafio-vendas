@@ -45,7 +45,7 @@
             {{-- Main Content --}}
             <div class="content">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    @include('flash::message')
+                    @include('sweetalert::alert')
                     @yield('content')
                 </div>
             </div>
@@ -87,9 +87,9 @@
                             Swal.fire('Sucesso!', 'Apagado com sucesso', 'success')
                         })
                         .catch(function (err) {
-                            Swal.fire('Sucesso!', 'Ocorreu um erro ao apagar', 'success')
+                            Swal.fire('Erro!', 'Ocorreu um erro ao apagar', 'error')
                         })
-                    
+
                 }
             })
         }

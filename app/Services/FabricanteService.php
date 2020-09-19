@@ -20,7 +20,6 @@ class FabricanteService
     public static function update($request, $fabricante){
 
         try{
-
             $fabricante->update($request);
         }catch (Throwable $th) {
             Log::error($th->getMessage());

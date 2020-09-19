@@ -26,9 +26,12 @@ class ClienteController extends Controller
         $cliente = ClienteService::store($request->all());
 
         if ($cliente) {
+
             Alert::success($request->nome, 'Salvo!!');
+
             return back();
-        }else{
+        } else {
+
             Alert::error($request->nome, 'Erro ao Salvar');
         }
         return back()->withInput();
@@ -59,8 +62,17 @@ class ClienteController extends Controller
         return back()->withInput();
     }
 
-    public function destroy(Cliente $cliente)
+    public function destroy(Cliente $cliente,Request $request)
     {
-        //
+        try {
+            $cliente->delete();
+            Alert::success($request->nome, 'Excluído!!');
+        } catch (Throwable $th) {
+            Alert::error($request->nome, 'Erro ao Excluir');
+        }
+    }
+    public function listaClientes(Request $request)
+    {
+        return ClienteService::listaClientes($request->all());
     }
 }

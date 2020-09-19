@@ -246,6 +246,16 @@ return [
             'url' => 'clientes',
             'text' => 'Clientes',
             'icon' => 'fas fa-users'
+        ],
+        [
+            'url' => 'vendas',
+            'text' => 'Vendas',
+            'icon' => 'fas fa-shopping-cart'
+        ],
+        [
+            'url' => 'usuarios',
+            'text' => 'Usuarios',
+            'icon' => 'fas fa-chalkboard-teacher'
         ]
     ],
 
@@ -330,7 +340,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

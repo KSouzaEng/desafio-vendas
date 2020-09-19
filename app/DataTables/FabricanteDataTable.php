@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Fabricante;
+use Collective\Html\FormFacade;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -16,11 +17,10 @@ class FabricanteDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function ($f) {
-                return link_to(route('fabricantes.edit', $f),'Editar', ['class' => 'btn btn-sm btn-primary']);
+                $acoes = link_to(route('fabricantes.edit', $f),'Editar', ['class' => 'btn btn-sm btn-primary mr-1']);
+                $acoes .= FormFacade::button('Excluir', ['class' => 'btn btn-sm btn-danger', 'onclick' => "excluir('" . route('fabricantes.destroy', $f) . "')"]);
 
-            })
-            ->editColumn('created_at', function ($f) {
-                return $f->created_at->format('d/m/Y');
+                return $acoes;
             });
 
     }
@@ -39,9 +39,17 @@ class FabricanteDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('create')->text('Cadastrar Novo'),
-                        Button::make('export')->text('Exportar'),
-                        Button::make('print')->text('Imprimir')
+                        Button::make('create')
+                        ->addClass('btn bg-primary')
+                        ->text('<i class=fas fa-plus mr-1></i>Cadastrar Novo'),
+
+                        Button::make('export')
+                        ->addClass('btn bg-primary')
+                        ->text('<i class=fas fa-plus mr-1></i>Exportar'),
+
+                        Button::make('print')
+                        ->addClass('btn bg-primary')
+                        ->text('<i class=fas fa-plus mr-1></i>Imprimir')
                     );
     }
 

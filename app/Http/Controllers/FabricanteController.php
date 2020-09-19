@@ -98,15 +98,15 @@ class FabricanteController extends Controller
      * @param  \App\Models\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fabricante $fabricantes, $id)
+    public function destroy(Fabricante $fabricantes,$id,Request $request)
     {
 
-
+        try {
             $fabricantes = Fabricante::find($id);
-           // dd($fabricantes);
             $fabricantes->delete();
-
-            return redirect('/fabricantes');
-
+            Alert::success($request->nome, 'Excluído!!');
+        } catch (Throwable $th) {
+            Alert::error($request->nome, 'Erro ao Excluir');
+        }
     }
 }

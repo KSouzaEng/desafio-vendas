@@ -20,7 +20,7 @@
 @section('js')
     {!! $dataTable->scripts() !!}
 
-    <script>
+    {{--  <script>
         function excluir(rota) {
             Swal.fire({
                 title: 'Atenção!',
@@ -41,9 +41,9 @@
                         .catch(function (err) {
                             Swal.fire('Sucesso!', 'Ocorreu um erro ao apagar', 'success')
                         })
-                    
+
                 }
             })
         }
-    </script>
+    </script>  --}}
 @stop
