@@ -29,8 +29,10 @@ class UserController extends Controller
          User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'user_id' => auth()->user()->id,
+
+
         ]);
         if( $request->name){
             Alert::success('Usuario', $request->name, 'Salvo!!');

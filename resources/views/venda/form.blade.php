@@ -90,8 +90,7 @@
 @stop
 
 @section('js')
-<script  >
-
+<script>
     var totalGeral = 0;
     var totalComDesconto = 0;
     var totalComAcrescimo = 0;

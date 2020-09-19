@@ -22,5 +22,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('vendas', 'VendaController')->only([
         'index', 'create', 'store', 'show'
     ]);
-    Route::resource('usuarios','UserController');
 });

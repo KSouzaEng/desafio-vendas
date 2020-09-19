@@ -17,9 +17,9 @@ class CreateVendasTable extends Migration
             $table->id();
             $table->integer('forma_pagamento');
             $table->text('observacao')->nullable();
-            $table->decimal('desconto',10,2)->nullable();
-            $table->decimal('acrescimo',10,2)->nullable();
-            $table->decimal('total',10,2);
+            $table->decimal('desconto', 10, 2)->nullable();
+            $table->decimal('acrescimo', 10, 2)->nullable();
+            $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();
