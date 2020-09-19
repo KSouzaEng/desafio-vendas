@@ -18,8 +18,8 @@ class CreateItemVendasTable extends Migration
             $table->integer('quantidade');
             $table->decimal('valor_unitario',10,2);
             $table->decimal('valor_total',10,2);
-            $table->unsignedBigInteger('vendas_id');
-            $table->foreign('vendas_id')->references('id')->on('vendas');
+            $table->unsignedBigInteger('venda_id');
+            $table->foreign('venda_id')->references('id')->on('vendas');
             $table->unsignedBigInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->timestamps();

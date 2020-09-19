@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('password', 'Senha') !!}
-                <div class="col col-lg-10">
+                <div class="col col-lg-25">
                     {!! Form::password('password', null, ['class' => 'form-control']) !!}
                     @error('password')
                         <small class="form-text text-danger">{{ $message }}</small>

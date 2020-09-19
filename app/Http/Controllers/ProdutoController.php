@@ -9,6 +9,7 @@ use App\Models\Produto;
 use App\Services\ProdutoService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Throwable;
 
 class ProdutoController extends Controller
 {
@@ -61,9 +62,13 @@ class ProdutoController extends Controller
      * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show($id)
     {
-        //
+        try{
+            return Produto::findOrFail($id);
+        }catch(Throwable $th){
+            return response('Erro ao selecionar o produto',400);
+        }
     }
 
     /**

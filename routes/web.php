@@ -18,6 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::get('lista-produtos', 'ProdutoController@listaProdutos')->name('lista.produtos');
     Route::resource('clientes', 'ClienteController');
     Route::get('lista-clientes', 'ClienteController@listaClientes')->name('lista.clientes');
+    Route::resource('usuarios', 'UserController');
+ 
+
 
     Route::resource('vendas', 'VendaController')->only([
         'index', 'create', 'store', 'show'
